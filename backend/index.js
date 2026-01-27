@@ -8,6 +8,7 @@ import lectureRoutes from './routes/lecture.route.js';
 import cors from 'cors';
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();
@@ -16,6 +17,9 @@ dotenv.config();
 
 
 const app = express();
+
+app.use(cookieParser());
+
 app.use(
   cors({
     origin: "http://localhost:5173",

@@ -98,6 +98,13 @@ export const loginUser = async (req, res) => {
       { expiresIn: "7d" }
     );
 
+    res.cookie("token", token, {
+  httpOnly: true,
+  sameSite: "lax",
+  secure: false,
+});
+
+
     // 5. Send response
     res.status(200).json({
       success: true,
