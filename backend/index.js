@@ -5,14 +5,25 @@ import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
 import lectureRoutes from './routes/lecture.route.js';
 
-
+import cors from 'cors';
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
 
 
 dotenv.config();
 
+
+
+
 const app = express();
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

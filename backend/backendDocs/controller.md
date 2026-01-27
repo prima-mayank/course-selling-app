@@ -33,9 +33,31 @@ Courses — PATCH /api/courses/:id/publish (auth)
 - Success: 200 { success, message, course }
 - Errors: 404 not found, 403 if unauthorized, 500 server error
 
+Lectures — GET /api/lectures?courseId=<id> (public)
+- Query: `courseId` (required)
+- Returns all lectures for a published course, sorted by `order`
+- Success: 200 { success, lectures }
+- Errors: 400 missing courseId, 404 course not found or not published, 500 server error
+
+Lectures — POST /api/lectures (auth)
+- Query: `courseId` (required)
+- Body: { title: string, videoUrl: string, order: number, isFreePreview?: boolean }
+- Creates a new lecture linked to the course; `isFreePreview` defaults to false
+- Success: 201 { success, message, lecture }
+- Errors: 400 missing fields, 404 course not found, 500 server error
+
+Lectures — DELETE /api/lectures?lectureId=<id> (auth)
+- Query: `lectureId` (required)
+- Deletes the lecture
+- Success: 200 { success, message }
+- Errors: 400 missing lectureId, 404 lecture not found, 500 server error
+
 Notes:
 - Use standard HTTP status codes: 400/401/403/404/409/500
 - Keep `JWT_SECRET` in environment and rotate if needed
 - Consider adding validation (Joi/express-validator) and pagination for the course list
+- Protect lecture creation and deletion with authentication and RBAC (limit to course instructor or admin)
+- Validate `order` uniqueness within a course, and consider re-ordering behavior
+- Consider cascading deletes (remove lectures when deleting a course) and file/video cleanup
 
 
