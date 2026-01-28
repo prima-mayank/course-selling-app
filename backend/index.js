@@ -4,7 +4,7 @@ import { connectDB } from './config/db.js';
 import userRoutes from './routes/user.routes.js';
 import courseRoutes from './routes/course.routes.js';
 import lectureRoutes from './routes/lecture.route.js';
-
+import enrollmentRoutes from './routes/enrollment.routes.js';
 import cors from 'cors';
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./config/swagger.js";
@@ -35,6 +35,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/users', userRoutes);
+app.use('/api/enrollments', enrollmentRoutes);
 app.use('/api/courses', courseRoutes);
 app.use('/api/lectures', lectureRoutes);
 
